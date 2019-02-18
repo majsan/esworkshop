@@ -1,0 +1,227 @@
+
+Elasticsearch
+
+------------------------
+
+Vad är elasticsearch
+
+------------------------
+
+Vad är Lucene
+
+------------------------
+
+Vad gör elasticsearch som inte lucene gör
+
+Rest API
+
+
+-----------------------
+
+Solr
+
+Nästan samma
+
+Är möjligvis lättare att anpassa
+
+Fler använder Elasticsearch, lättare att hitta svar på frågor
+
+-----------------------
+
+Indexering
+
+-----------------------
+
+Indexering i Elasticsearch
+
+Inverted index
+Termfrekvenser för att räkna ut score
+Positioner och offsets för highlighting
+
+
+-----------------------
+
+Relevans del 1
+
+-----------------------
+
+Det perfekta användarfallet?
+
+- Datan passar bra i JSON-format
+- Resultatet ska sorteras efter relevans
+- Dokumenten innehåller löpande text som behöver analyseras
+- Användaren söker i fritextfält
+- Datan ändras inte
+- Datan kan återskapas genom omindexering från en annan källa
+- Behov av hög tillgänglighet
+
+-----------------------
+
+Det sämsta användarfallet?
+
+- Det finns relationer mellan dokument
+- Transaktioner behövs
+- Det finns constraints som behöver upprätthållas
+- Dokumenten sorteras alltid på något annat än score
+- Textanalys behövs ej
+- Datan är enkelt att "platta ut"
+- Datan ändras och får ej förloras
+- Svårt att göra Korpliknande sökningar
+
+-----------------------
+
+Mittimellanfallet
+
+Kombinera med en annan databas
+
+Använd ES för sökning
+
+Använd databasen för allt annat
+
+Möjligt att endast skapa index för sökning i ES, men hämta
+datan från en annan plats (ingen highlighting)
+
+Går också att använda Lucene direkt
+
+-----------------------
+
+Alternativ
+
+- Postgres/nyare versioner av MySQL har bra stöd för JSON-fält där det går att skapa index på en nyckel och söka i objektet
+- Det går även att indexera längre textfält
+- Många relationsdatabaser kan ge tillbaka resultatet i relevansordning och göra highlightning
+- En annan NoSQL databas
+- Tips?
+
+Om man ändå ska använda t.ex. Postgres kan det vara värt att undersöka om de inbyggda funktionerna duger för ens krav på precision och snabbhet
+
+-----------------------
+
+ES basics
+
+Nod
+Kluster
+Index
+Shards och replicas
+Mapping
+
+-----------------------
+
+Mapping
+
+_source
+
+Indexera inte fält som inte ska sökas i (spara minne och diskutrymme)
+
+Text, olika typer av nummer, bool, datum, objekt, arrayer, geo
+
+Ett fält kan ha flera olika typer (och analysers)
+
+Vanligt att indexera textfält med en analyser med ett subfält som är helt oanalyserat
+
+-----------------------
+
+Indexering
+
+Det man skickar in är det man får tillbaka
+Analyser påverkar bara indexeringen och inte datan
+Möjligt att ta bort fält från datan efter analysen
+
+-----------------------
+
+Arrayer
+
+Arrayer är alltid svårt
+
+Om man har listor av objekt som har listor i sig osv. så blir en normaliserad datamodell för en relationsdatabas störig
+
+Elasticsearch är inte heller helt bra, men det beror på vilka typer av frågor man ställer
+
+-----------------------
+
+Indexering av arrayer i Elasticsearch
+
+["apa", "bepa", "cepa"] samma som "apa bepa cepa" med en tokeniser som splittar på mellanslag
+
+field: [{apa: 1, bepa: 2}, {apa: 3, bepa: 4}] är samma som två fält:
+
+field.apa = [1, 3]
+field.bepa = [2, 4]
+
+För att kunna begränsa sökträffarna till dokument där `field.apa = 1 and field.bepa = 2` behöver man mappa fältet som `nested`
+
+-----------------------
+
+Textanalys i Elasticsearch
+
+- Character filtering
+- Tokenisation
+- Token filter
+
+-----------------------
+
+Textanalys i Elasticsearch
+
+Token filter
+
+- Skiftläge
+- Böjningsmönster
+- Synonymer
+- Stavningsvariationer
+- Stoppord
+- Sammasatta ord
+- Från detaljerade ord till mindre detaljerade ord (t.ex. äpple -> äpple, frukt)
+- (Skiljetecken)
+
+-----------------------
+
+Textanalys i Elasticsearch
+
+Sökning
+
+I match-queries så analyseras även söksträngen
+
+Default: Samma analyser används som på det fältet man söker i
+
+-----------------------
+
+Sökning i Elasticsearch
+
+Fokusera på att de träffar man får för en viss query är i relevansordning
+Inte att man får tillbaka orelevanta träffar långt ner i resultatet
+
+-----------------------
+
+Filtrering
+
+boolean filter
+
+constant score
+
+Ingen scoring görs
+
+-----------------------
+
+Relevans del 2
+
+BM25, men andra funktioner finns
+
+Analysera varför ett dokument fick ett viss score m.h.a. _explain
+
+Man kan inte jämföra scores på olika fält rakt av, träffar i kortare fält oftast högre score än träffar i längre texter
+
+Men man kan använda boosts för att få ett fält att värderas högre
+
+Oftast så är nog förväntningen att de dokument som innehåller flest av de sökta termerna ska finnas
+
+Vilket query man använder påverkar inte bara vilka dokument som skickas tillbaka, utan även score
+
+-----------------------
+
+Aggregations
+
+-----------------------
+
+
+
+

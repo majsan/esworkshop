@@ -1,0 +1,26 @@
+
+
+---------------------------------
+
+
+analysers
+queries (boolean, term, regexp)
+highlight
+aggregations (terms, avg, nested)
+egna tokenisers
+term vectors
+direkt analys som visar terms
+
+
+2. Workshop
+
+
+Data: vivill
+
+Hämta från es och konkatenera dump-fältet
+
+analyzer="swedish"
+
+En shard, en replica
+
+
