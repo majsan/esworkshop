@@ -26,7 +26,7 @@ Elasticsearch kör på http://localhost:9200.
 
 Starta Kibana `kibana-6.6.0/bin/kibana`, gränssnittet finns tillgängligt på http://localhost:5601, klicka på Dev tools.
 
-Testa en sökning
+Testa en sökning:
 
 ```
 GET vivill/_search
@@ -44,15 +44,15 @@ GET vivill/_search
 }
 ```
 
-Endast exakta träffar på "globalisering" visas i highlightningen
+Endast exakta träffar på "globalisering" visas i highlightningen.
 
 ### Automatisk mappning
 
-`GET vivill/_mapping` visar nuvarande mappning
+`GET vivill/_mapping` visar nuvarande mappning.
 
 ### Lägg in en mappning
 
-I Kibana, ta först bort indexet med `DELETE vivill`
+I Kibana, ta först bort indexet med: `DELETE vivill`
 
 Skapa indexet: `PUT vivill`
 
@@ -71,7 +71,7 @@ PUT vivill/_mapping/_doc
 
 Gör om indexeringen:
 
-`curl -XPOST localhost:9200/vivill/_doc/_bulk -H "Content-Type: application/x-ndjson" --data-binary @vivill.json`.
+`curl -XPOST localhost:9200/vivill/_doc/_bulk -H "Content-Type: application/x-ndjson" --data-binary @vivill.json`
 
 Gör samma sökning som ovan, nu visas även träffar på t.ex. "globaliserings".
 
@@ -100,13 +100,13 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/date.html
 
 https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
 
-På titel och text
+T.ex. på titel och text
 
 #### `copy_to`, skapa ett nytt fält och indexera flera fält dit
 
 https://www.elastic.co/guide/en/elasticsearch/reference/current/copy-to.html
 
-Testa att söka i det nya fältet
+Testa att söka i det nya fältet.
 
 ## cURL
 
