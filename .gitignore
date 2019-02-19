@@ -1,8 +1,4 @@
-*.aux
-*.log
-*.nav
-*.out
-*.pdf
-*.snm
-*.toc
+presentation.txt
+index.py
+vivill.jsonl
 
