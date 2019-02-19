@@ -81,8 +81,6 @@ Använd databasen för allt annat
 Möjligt att endast skapa index för sökning i ES, men hämta
 datan från en annan plats (ingen highlighting)
 
-Går också att använda Lucene direkt
-
 -----------------------
 
 Alternativ
@@ -91,6 +89,7 @@ Alternativ
 - Det går även att indexera längre textfält
 - Många relationsdatabaser kan ge tillbaka resultatet i relevansordning och göra highlightning
 - En annan NoSQL databas
+- Lucene
 - Tips?
 
 Om man ändå ska använda t.ex. Postgres kan det vara värt att undersöka om de inbyggda funktionerna duger för ens krav på precision och snabbhet
