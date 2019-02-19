@@ -10,11 +10,13 @@ Kibana, Mac: https://artifacts.elastic.co/downloads/kibana/kibana-6.6.0-darwin-x
 
 ## Starta Elasticsearch
 
-Öka gärna minnet till något mer än default:
+Öka minnet till något mer än default om du får problem:
 
 `export ES_JAVA_OPTS="-Xms1g -Xmx1g"`
 
 Starta Elasticsearch: `elasticsearch-6.6.0/bin/elasticsearch`
+
+Elasticsearch kör på http://localhost:9200.
 
 ## Lägg in data
 
