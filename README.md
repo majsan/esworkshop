@@ -5,6 +5,7 @@
 Elastic: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.0.tar.gz
 
 Kibana, Linux: https://artifacts.elastic.co/downloads/kibana/kibana-6.6.0-linux-x86_64.tar.gz
+
 Kibana, Mac: https://artifacts.elastic.co/downloads/kibana/kibana-6.6.0-darwin-x86_64.tar.gz
 
 ## Starta Elasticsearch
@@ -21,7 +22,7 @@ curl -XPOST localhost:9200/vivill/_doc/_bulk -H "Content-Type: application/x-ndj
 
 ## Sök
 
-Starta Kibana `kibana-6.6.0/bin/kibana`, gränssnittet finns tillgängligt på http://localhost:5601/app/kibana#/dev_tools/
+Starta Kibana `kibana-6.6.0/bin/kibana`, gränssnittet finns tillgängligt på http://localhost:5601, klicka på Dev tools.
 
 Testa en sökning
 
@@ -66,8 +67,40 @@ PUT vivill/_mapping/_doc
 }
 ```
 
-Gör samma sökning som ovan, nu visas även träffar på t.ex. "globaliserings"
+Gör samma sökning som ovan, nu visas även träffar på t.ex. "globaliserings".
 
+De fälten som man inte väljer att ge en explicit mappning får det automatiskt istället.
+
+### Olika saker att testa
+
+Tips: lägg in `"_source": {"exclude": ["text"]}` för att slippa se den långa texten i reslutatet, men ha kvar highlights
+för att veta vad som träffar.
+
+#### `boolean`-query
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html
+
+#### Aggregations
+
+T.ex. terms aggregations på parti eller år
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
+
+#### Lägga in datummappning på `datefrom`, `dateto`
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/date.html
+
+#### `multi_match`, sök i flera fält samtidigt
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
+
+På titel och text
+
+#### `copy_to`, skapa ett nytt fält och indexera flera fält dit
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/copy-to.html
+
+Testa att söka i det nya fältet
 
 ## cURL
 
