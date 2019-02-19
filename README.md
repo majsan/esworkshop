@@ -20,7 +20,7 @@ Elasticsearch kör på http://localhost:9200.
 
 ## Lägg in data
 
-curl -XPOST localhost:9200/vivill/_doc/_bulk -H "Content-Type: application/x-ndjson" --data-binary @vivill.json
+`curl -XPOST localhost:9200/vivill/_doc/_bulk -H "Content-Type: application/x-ndjson" --data-binary @vivill.json`
 
 ## Sök
 
@@ -68,6 +68,10 @@ PUT vivill/_mapping/_doc
   }
 }
 ```
+
+Gör om indexeringen:
+
+`curl -XPOST localhost:9200/vivill/_doc/_bulk -H "Content-Type: application/x-ndjson" --data-binary @vivill.json`.
 
 Gör samma sökning som ovan, nu visas även träffar på t.ex. "globaliserings".
 
